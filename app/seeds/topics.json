@@ -1,0 +1,817 @@
+{
+  "categories": [
+    {
+      "id": "js-react",
+      "name": "JavaScript y React",
+      "icon": "🟦"
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "icon": "🐍"
+    },
+    {
+      "id": "sql",
+      "name": "SQL",
+      "icon": "🗃️"
+    },
+    {
+      "id": "react-native",
+      "name": "React Native",
+      "icon": "📱"
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "icon": "🧰"
+    },
+    {
+      "id": "soft-skills",
+      "name": "Mindset",
+      "icon": "🧠"
+    },
+    {
+      "id": "extras",
+      "name": "Extras",
+      "icon": "📚"
+    }
+  ],
+  "topics": [
+    {
+      "id": "js-tipos-de-datos",
+      "title": "Tipos de datos (undefined, null, NaN, Symbol, etc.)",
+      "category_id": "js-react",
+      "details": [
+        "Primitivos: String, Number, BigInt, Boolean, undefined, Symbol.",
+        "Objeto: null (typeof es 'object'), Object, Array, Function.",
+        "NaN: 'Not a Number', resultado de operaciones numéricas inválidas."
+      ]
+    },
+    {
+      "id": "js-funciones-orden-superior",
+      "title": "Funciones de orden superior (map, filter, reduce)",
+      "category_id": "js-react",
+      "details": [
+        "Toman una función como argumento o retornan una función.",
+        ".map(): Crea un nuevo array con los resultados de llamar a una función para cada elemento.",
+        ".filter(): Crea un nuevo array con elementos que pasan un test.",
+        ".reduce(): Aplica una función a un acumulador y a cada elemento para reducirlo a un solo valor."
+      ]
+    },
+    {
+      "id": "js-scope-y-closures",
+      "title": "Scope y closures",
+      "category_id": "js-react",
+      "details": [
+        "Scope: Dónde son accesibles las variables (Global, Function, Block con let/const).",
+        "Closure (Clausura): Una función interna tiene acceso al scope de la función externa, incluso después de que la externa haya retornado."
+      ]
+    },
+    {
+      "id": "js-hoisting",
+      "title": "Hoisting",
+      "category_id": "js-react",
+      "details": [
+        "Las declaraciones (var, function) se mueven al inicio de su scope antes de la ejecución.",
+        "Solo se 'eleva' la declaración, no la inicialización (var x; se eleva, x = 5; no).",
+        "let y const no se 'elevan' (están en la 'Temporal Dead Zone')."
+      ]
+    },
+    {
+      "id": "js-this-contexto",
+      "title": "this y contexto de ejecución",
+      "category_id": "js-react",
+      "details": [
+        "this se refiere al objeto al que pertenece la función.",
+        "Global: window (navegador) o global (Node).",
+        "Método de objeto: el objeto.",
+        ".call(), .apply(), .bind(): Permiten establecer this explícitamente.",
+        "Arrow Functions (=>): No tienen su propio this, lo heredan del scope léxico superior."
+      ]
+    },
+    {
+      "id": "js-event-loop",
+      "title": "Event loop y concurrency model",
+      "category_id": "js-react",
+      "details": [
+        "Modelo de concurrencia de JS (un solo hilo).",
+        "Call Stack: Donde se ejecutan las funciones.",
+        "Callback Queue (o Task Queue): Tareas de eventos (clics, setTimeout).",
+        "Event Loop: Mueve tareas de la Queue al Stack cuando el Stack está vacío."
+      ]
+    },
+    {
+      "id": "js-microtasks-macrotasks",
+      "title": "Microtasks vs macrotasks (Promise, setTimeout)",
+      "category_id": "js-react",
+      "details": [
+        "Macrotasks (Task Queue): setTimeout, setInterval, I/O. Se ejecuta una por ciclo del Event Loop.",
+        "Microtasks (Microtask Queue): Promise.then(), await. Se ejecutan todas al final de la tarea actual, antes del siguiente macrotask."
+      ]
+    },
+    {
+      "id": "js-prototype-chain",
+      "title": "Prototype chain y herencia",
+      "category_id": "js-react",
+      "details": [
+        "Mecanismo de herencia en JS.",
+        "Los objetos tienen una propiedad [[Prototype]] (__proto__) que enlaza a otro objeto.",
+        "Al buscar una propiedad, JS la busca en el objeto y luego en su prototipo, y así sucesivamente."
+      ]
+    },
+    {
+      "id": "js-object-create-clases",
+      "title": "Object.create() vs clases ES6",
+      "category_id": "js-react",
+      "details": [
+        "Object.create(proto): Crea un nuevo objeto con el prototipo especificado. Herencia prototípica pura.",
+        "Clases (class): 'Azúcar sintáctico' sobre la herencia prototípica. Introduce constructor, super, static."
+      ]
+    },
+    {
+      "id": "js-destructuring-spread-rest",
+      "title": "Destructuring y spread/rest operators",
+      "category_id": "js-react",
+      "details": [
+        "Destructuring ({ a, b } = obj): Extrae valores de arrays u objetos.",
+        "Spread (...arr): Expande un iterable en elementos (copias, merge, argumentos).",
+        "Rest (...args): Agrupa el 'resto' de los elementos en un array (parámetros de función)."
+      ]
+    },
+    {
+      "id": "js-async-await",
+      "title": "async/await y manejo de errores",
+      "category_id": "js-react",
+      "details": [
+        "Azúcar sintáctico para trabajar con Promesas de forma más síncrona.",
+        "async: Marca una función que retorna una Promesa.",
+        "await: Pausa la ejecución async hasta que la Promesa se resuelva.",
+        "Manejo de errores: Se usa try...catch estándar."
+      ]
+    },
+    {
+      "id": "js-settimeout-cero",
+      "title": "setTimeout(fn, 0) y por qué no es inmediato",
+      "category_id": "js-react",
+      "details": [
+        "Coloca la función fn en la Callback Queue (como un macrotask).",
+        "Se ejecutará solo después de que el Call Stack esté vacío y se hayan procesado todos los microtasks pendientes. Útil para 'ceder' el hilo principal."
+      ]
+    },
+    {
+      "id": "react-jsx-vdom",
+      "title": "JSX y virtual DOM",
+      "category_id": "js-react",
+      "details": [
+        "JSX: Extensión de sintaxis (XML-like) para JS, usada por React para describir la UI. Se transpila a React.createElement().",
+        "Virtual DOM (VDOM): Representación de la UI en memoria. React la usa para calcular la diferencia (diffing) y aplicar solo los cambios necesarios (reconciliación)."
+      ]
+    },
+    {
+      "id": "react-ciclo-de-vida-hooks",
+      "title": "Ciclo de vida (useEffect, useLayoutEffect)",
+      "category_id": "js-react",
+      "details": [
+        "useEffect(fn, [deps]): Para efectos secundarios (fetch, suscripciones, DOM).",
+        "Se ejecuta en montaje, y en actualización si [deps] cambian.",
+        "Retorna una función de limpieza para el desmontaje.",
+        "useLayoutEffect: Idéntico, pero se ejecuta síncronamente después de las mutaciones del DOM."
+      ]
+    },
+    {
+      "id": "react-estado-hooks",
+      "title": "Estado (useState, useReducer)",
+      "category_id": "js-react",
+      "details": [
+        "useState(initial): Retorna [valor, setValor]. Para estado simple.",
+        "useReducer(reducer, initial): Retorna [estado, dispatch]. Para lógica de estado compleja o que depende del estado anterior, similar a Redux."
+      ]
+    },
+    {
+      "id": "react-props-lifting-state",
+      "title": "Props y lifting state",
+      "category_id": "js-react",
+      "details": [
+        "Props (Propiedades): Datos pasados de un componente padre a un hijo (solo lectura).",
+        "Lifting State Up (Elevar estado): Mover el estado al ancestro común más cercano para compartirlo entre componentes."
+      ]
+    },
+    {
+      "id": "react-custom-hooks",
+      "title": "Custom hooks",
+      "category_id": "js-react",
+      "details": [
+        "Funciones que empiezan con 'use' y encapsulan lógica de React reutilizable (estado, efectos, contexto).",
+        "Ej: useFetch(url), useLocalStorage(key)."
+      ]
+    },
+    {
+      "id": "react-context-vs-redux",
+      "title": "Context API vs Redux",
+      "category_id": "js-react",
+      "details": [
+        "Context API: Mecanismo para pasar datos a través del árbol de componentes sin props (evita prop drilling). Ideal para 'estado global' simple (tema, usuario).",
+        "Redux: Librería de manejo de estado (store, actions, reducers). Para estado global complejo, centralizado y con lógica predecible."
+      ]
+    },
+    {
+      "id": "react-renderizado-condicional-listas",
+      "title": "Renderizado condicional y listas",
+      "category_id": "js-react",
+      "details": [
+        "Condicional: Usar JS estándar: {condicion && <Componente/>} (AND), {condicion ? <A/> : <B/>} (ternario), o if/else fuera de JSX.",
+        "Listas: Usar .map() sobre un array para retornar un array de elementos JSX."
+      ]
+    },
+    {
+      "id": "react-keys-reconciliacion",
+      "title": "Keys en listas y reconciliación",
+      "category_id": "js-react",
+      "details": [
+        "Atributo especial key (string o number) que debe ser único entre hermanos.",
+        "React usa las keys para identificar qué elementos cambiaron, se añadieron o eliminaron, optimizando la reconciliación del VDOM."
+      ]
+    },
+    {
+      "id": "react-memoizacion",
+      "title": "Memoización (React.memo, useMemo, useCallback)",
+      "category_id": "js-react",
+      "details": [
+        "React.memo(Componente): HOC que evita re-renderizar un componente si sus props no cambian.",
+        "useMemo(() => valor, [deps]): Hook que memoíza un valor calculado (costoso).",
+        "useCallback(() => fn, [deps]): Hook que memoíza una función (útil para pasar a hijos memoizados)."
+      ]
+    },
+    {
+      "id": "react-error-boundaries",
+      "title": "Error boundaries",
+      "category_id": "js-react",
+      "details": [
+        "Componentes de clase que capturan errores de JS en sus componentes hijos (render, ciclo de vida).",
+        "Definen static getDerivedStateFromError() o componentDidCatch().",
+        "Muestran una UI de fallback en lugar de 'romper' la app."
+      ]
+    },
+    {
+      "id": "react-suspense-lazy-loading",
+      "title": "Suspense y lazy loading",
+      "category_id": "js-react",
+      "details": [
+        "React.lazy(() => import('./Componente')): Permite cargar componentes dinámicamente (code splitting).",
+        "<Suspense fallback={<Loading/>}>: Componente que permite mostrar un 'fallback' mientras sus hijos (cargados con lazy) están 'suspendidos'."
+      ]
+    },
+    {
+      "id": "py-tipos-de-datos",
+      "title": "Tipos de datos (list, dict, set, tuple)",
+      "category_id": "python",
+      "details": [
+        "list: Mutable, ordenada, permite duplicados. [1, \"a\"].",
+        "tuple: Inmutable, ordenada. (1, \"a\").",
+        "dict: Mutable, ordenado por inserción (3.7+), pares clave-valor. {\"a\": 1}.",
+        "set: Mutable, desordenado, no permite duplicados. {1, \"a\"}."
+      ]
+    },
+    {
+      "id": "py-list-comprehensions",
+      "title": "List comprehensions",
+      "category_id": "python",
+      "details": [
+        "Sintaxis concisa para crear listas.",
+        "[expresion for item in iterable if condicion].",
+        "Ej: cuadrados = [x*x for x in range(10)].",
+        "También existen dict/set comprehensions."
+      ]
+    },
+    {
+      "id": "py-decoradores",
+      "title": "Decoradores",
+      "category_id": "python",
+      "details": [
+        "Funciones que modifican el comportamiento de otras funciones o métodos.",
+        "Sintaxis @mi_decorador.",
+        "Un decorador es una función que toma una función como argumento y retorna una nueva función."
+      ]
+    },
+    {
+      "id": "py-generadores-yield",
+      "title": "Generadores (yield)",
+      "category_id": "python",
+      "details": [
+        "Funciones que usan yield para retornar un valor y 'pausar' su ejecución, guardando su estado.",
+        "Retornan un iterador. Eficientes en memoria para secuencias grandes."
+      ]
+    },
+    {
+      "id": "py-excepciones",
+      "title": "Manejo de excepciones (try/except/finally)",
+      "category_id": "python",
+      "details": [
+        "try: Bloque de código que puede fallar.",
+        "except MiError as e: Captura errores específicos.",
+        "else: Se ejecuta si el bloque try no lanzó excepciones.",
+        "finally: Se ejecuta siempre (para limpieza de recursos)."
+      ]
+    },
+    {
+      "id": "py-context-managers",
+      "title": "Context managers (with)",
+      "category_id": "python",
+      "details": [
+        "Objeto que define un contexto de ejecución usando __enter__ y __exit__.",
+        "La sentencia with asegura que los recursos (archivos, conexiones) se configuren y liberen correctamente."
+      ]
+    },
+    {
+      "id": "py-modulos-paquetes",
+      "title": "Módulos y paquetes",
+      "category_id": "python",
+      "details": [
+        "Módulo: Un archivo .py con código Python.",
+        "Paquete: Un directorio con módulos y un archivo __init__.py (puede estar vacío) que lo marca como paquete."
+      ]
+    },
+    {
+      "id": "py-init-main-name",
+      "title": "__init__.py, __main__, __name__",
+      "category_id": "python",
+      "details": [
+        "__init__.py: Se ejecuta al importar un paquete.",
+        "__name__: Variable global. Es \"__main__\" si el script se ejecuta directamente, o el nombre del módulo si se importa.",
+        "if __name__ == \"__main__\":: Bloque para código que solo debe ejecutarse al correr el script."
+      ]
+    },
+    {
+      "id": "py-tipado-estatico",
+      "title": "Tipado estático con typing",
+      "category_id": "python",
+      "details": [
+        "Python es dinámicamente tipado, pero permite 'type hints' (anotaciones) opcionales.",
+        "Módulo typing (List, Dict, Optional).",
+        "Usado por herramientas como mypy para análisis estático y por IDEs."
+      ]
+    },
+    {
+      "id": "py-dataclasses",
+      "title": "dataclasses",
+      "category_id": "python",
+      "details": [
+        "Decorador (@dataclass) que genera automáticamente métodos especiales (__init__, __repr__, __eq__) para clases que almacenan datos.",
+        "Reduce código boilerplate."
+      ]
+    },
+    {
+      "id": "py-asyncio",
+      "title": "Asyncio y concurrencia",
+      "category_id": "python",
+      "details": [
+        "Módulo para concurrencia usando un event loop (cooperativo, un solo hilo).",
+        "Usa async def para definir corutinas y await para pausar y ceder control.",
+        "Ideal para operaciones I/O bound (red, disco)."
+      ]
+    },
+    {
+      "id": "py-multiprocessing-threading",
+      "title": "multiprocessing vs threading",
+      "category_id": "python",
+      "details": [
+        "threading: Hilos dentro de un mismo proceso. Limitado por el GIL (Global Interpreter Lock); bueno para I/O bound.",
+        "multiprocessing: Procesos separados, cada uno con su propio intérprete (sin GIL). Bueno para CPU bound."
+      ]
+    },
+    {
+      "id": "py-pep8",
+      "title": "PEP8 y convenciones",
+      "category_id": "python",
+      "details": [
+        "Guía de estilo oficial para código Python.",
+        "Define convenciones de nombrado (snake_case), indentación (4 espacios), longitud de línea.",
+        "Herramientas como flake8 o black ayudan a forzarlo."
+      ]
+    },
+    {
+      "id": "py-pytest",
+      "title": "Testing con pytest",
+      "category_id": "python",
+      "details": [
+        "Framework de testing popular.",
+        "Permite escribir tests como funciones simples (def test_algo():).",
+        "Usa assert estándar. Extensible con 'fixtures'."
+      ]
+    },
+    {
+      "id": "py-entornos-virtuales",
+      "title": "Entornos virtuales y pip freeze",
+      "category_id": "python",
+      "details": [
+        "venv: Herramienta para crear entornos aislados con sus propias dependencias.",
+        "pip freeze > requirements.txt: Guarda las dependencias y versiones exactas del entorno.",
+        "pip install -r requirements.txt: Instala las dependencias desde el archivo."
+      ]
+    },
+    {
+      "id": "py-automatizacion-scripts",
+      "title": "Automatización con scripts (argparse, subprocess)",
+      "category_id": "python",
+      "details": [
+        "argparse: Módulo para parsear argumentos de línea de comandos (crea scripts CLI robustos).",
+        "subprocess: Módulo para ejecutar comandos externos del sistema operativo."
+      ]
+    },
+    {
+      "id": "py-configuracion-diagnostico",
+      "title": "Configuración y diagnóstico (venv, requirements.txt, pyproject.toml)",
+      "category_id": "python",
+      "details": [
+        "venv: Entorno virtual.",
+        "requirements.txt: Lista de dependencias (generada con pip freeze).",
+        "pyproject.toml: Archivo de configuración unificado (PEP 518). Usado por herramientas modernas (poetry, pip) para definir dependencias y configuración de build."
+      ]
+    },
+    {
+      "id": "sql-select-where-order-limit",
+      "title": "SELECT, WHERE, ORDER BY, LIMIT",
+      "category_id": "sql",
+      "details": [
+        "SELECT col1, col2: Especifica las columnas a retornar.",
+        "FROM tabla: Especifica la tabla.",
+        "WHERE condicion: Filtra las filas.",
+        "ORDER BY col1 DESC: Ordena los resultados (ASC por defecto).",
+        "LIMIT 10: Restringe el número de filas retornadas."
+      ]
+    },
+    {
+      "id": "sql-distinct-vs-group-by",
+      "title": "DISTINCT vs GROUP BY",
+      "category_id": "sql",
+      "details": [
+        "SELECT DISTINCT col1: Retorna solo valores únicos para esa columna (elimina duplicados).",
+        "GROUP BY col1: Agrupa filas que tienen el mismo valor en col1, para poder usar funciones agregadas (COUNT, SUM) sobre cada grupo."
+      ]
+    },
+    {
+      "id": "sql-funciones-agregadas",
+      "title": "Funciones agregadas (COUNT, SUM, AVG, MAX, MIN)",
+      "category_id": "sql",
+      "details": [
+        "Operan sobre un conjunto de filas y retornan un solo valor.",
+        "COUNT(*): Número de filas.",
+        "SUM(col): Suma de valores.",
+        "AVG(col): Promedio.",
+        "Usadas con GROUP BY."
+      ]
+    },
+    {
+      "id": "sql-having-vs-where",
+      "title": "HAVING vs WHERE",
+      "category_id": "sql",
+      "details": [
+        "WHERE: Filtra filas *antes* de que se agrupen (opera sobre datos crudos).",
+        "HAVING: Filtra grupos *después* de que se agrupen y se apliquen las funciones agregadas.",
+        "... GROUP BY depto HAVING COUNT(*) > 10."
+      ]
+    },
+    {
+      "id": "sql-joins",
+      "title": "INNER JOIN vs LEFT JOIN vs RIGHT JOIN vs FULL OUTER JOIN",
+      "category_id": "sql",
+      "details": [
+        "INNER JOIN: Retorna filas cuando hay coincidencias en *ambas* tablas.",
+        "LEFT JOIN: Retorna *todas* las filas de la tabla izquierda, y las coincidencias de la derecha (o NULL).",
+        "RIGHT JOIN: Retorna *todas* las filas de la tabla derecha.",
+        "FULL OUTER JOIN: Retorna *todas* las filas cuando hay una coincidencia en *cualquiera* de las tablas."
+      ]
+    },
+    {
+      "id": "sql-subqueries-ctes",
+      "title": "Subqueries y CTEs (WITH)",
+      "category_id": "sql",
+      "details": [
+        "Subquery: Una query SELECT anidada dentro de otra (en SELECT, FROM, o WHERE).",
+        "CTE (Common Table Expression): Un conjunto de resultados temporal nombrado, definido con WITH. Mejora la legibilidad."
+      ]
+    },
+    {
+      "id": "sql-indices-optimizacion",
+      "title": "Índices y optimización",
+      "category_id": "sql",
+      "details": [
+        "Estructura de datos (ej. B-Tree) que mejora la velocidad de búsqueda (SELECT con WHERE, JOINs).",
+        "Se crean sobre columnas frecuentemente consultadas.",
+        "Aceleran lecturas pero ralentizan escrituras (INSERT, UPDATE)."
+      ]
+    },
+    {
+      "id": "sql-normalizacion",
+      "title": "Normalización y relaciones",
+      "category_id": "sql",
+      "details": [
+        "Proceso de diseño de base de datos para reducir la redundancia de datos y mejorar la integridad.",
+        "Formas Normales (1NF, 2NF, 3NF): Reglas para estructurar tablas usando claves primarias y foráneas."
+      ]
+    },
+    {
+      "id": "sql-null-coalesce",
+      "title": "NULL handling y COALESCE",
+      "category_id": "sql",
+      "details": [
+        "NULL: Representa un valor desconocido o ausente.",
+        "IS NULL / IS NOT NULL: Operadores para filtrar por NULL.",
+        "COALESCE(col1, 'default'): Función que retorna el primer valor no-NULL de la lista."
+      ]
+    },
+    {
+      "id": "sql-explain",
+      "title": "EXPLAIN y análisis de performance",
+      "category_id": "sql",
+      "details": [
+        "Comando (ej. EXPLAIN SELECT ...) que muestra el 'plan de ejecución' de la query.",
+        "Indica cómo la base de datos pretende ejecutar la consulta (qué índices usa, tipo de joins, orden).",
+        "Clave para optimizar y diagnosticar queries lentas."
+      ]
+    },
+    {
+      "id": "rn-nativos-vs-web",
+      "title": "Componentes nativos vs web",
+      "category_id": "react-native",
+      "details": [
+        "RN no usa HTML. Usa componentes (<View>, <Text>) que se mapean a vistas nativas de iOS (UIView) y Android (<ViewGroup>).",
+        "El 'bridge' de RN comunica el hilo de JS con el hilo nativo de UI."
+      ]
+    },
+    {
+      "id": "rn-navegacion",
+      "title": "Navegación (react-navigation)",
+      "category_id": "react-native",
+      "details": [
+        "Librería estándar para navegación en RN.",
+        "Provee navegadores Stack (para flujos pantalla-a-pantalla), Tab (pestañas) y Drawer (menú lateral)."
+      ]
+    },
+    {
+      "id": "rn-hooks-movil",
+      "title": "Hooks en móvil (useEffect, useFocusEffect)",
+      "category_id": "react-native",
+      "details": [
+        "useEffect: Funciona igual que en React.",
+        "useFocusEffect: Hook de react-navigation. Se ejecuta cuando la pantalla *entra* en foco, y ejecuta su limpieza cuando *sale* del foco."
+      ]
+    },
+    {
+      "id": "rn-manejo-estado",
+      "title": "Manejo de estado (Redux, Context)",
+      "category_id": "react-native",
+      "details": [
+        "useState, useReducer, Context: Funcionan igual que en React.",
+        "Librerías externas (Redux, Zustand) también funcionan.",
+        "Considerar la persistencia del estado (ej. AsyncStorage) para guardar datos offline."
+      ]
+    },
+    {
+      "id": "rn-apis-nativas",
+      "title": "Acceso a APIs nativas (Camera, Location, Push Notifications)",
+      "category_id": "react-native",
+      "details": [
+        "Acceso a hardware (Cámara, GPS) y APIs del OS (Push Notifications, Contactos).",
+        "Se puede usar Expo (que abstrae muchas de ellas) o librerías de terceros (ej. react-native-camera)."
+      ]
+    },
+    {
+      "id": "rn-estilos",
+      "title": "Estilos (StyleSheet, styled-components)",
+      "category_id": "react-native",
+      "details": [
+        "No se usa CSS. Se usa StyleSheet.create(), que crea objetos de JS con un subconjunto de propiedades CSS (usa Flexbox para layout).",
+        "styled-components/native también está disponible."
+      ]
+    },
+    {
+      "id": "rn-debugging",
+      "title": "Debugging en móvil (Flipper, React Native Debugger)",
+      "category_id": "react-native",
+      "details": [
+        "Menú de desarrollador (agitar el móvil).",
+        "Flipper: Plataforma de debugging de Meta.",
+        "React Native Debugger: App standalone que combina Redux DevTools, React DevTools e inspector."
+      ]
+    },
+    {
+      "id": "rn-performance",
+      "title": "Performance y renderizado",
+      "category_id": "react-native",
+      "details": [
+        "Usar FlatList o SectionList para listas (virtualización).",
+        "Memoizar componentes (React.memo) para evitar re-renders.",
+        "Optimizar imágenes y evitar console.log en producción."
+      ]
+    },
+    {
+      "id": "git-stash-vs-branch",
+      "title": "git stash vs branch temporal",
+      "category_id": "git",
+      "details": [
+        "git stash: Guarda cambios locales (WIP) temporalmente sin hacer commit, dejando el working directory limpio. Útil para cambiar de rama rápidamente.",
+        "Branch temporal: git checkout -b fix_temporal; git commit -m \"WIP\". Más robusto, pero requiere 'deshacer' el commit después."
+      ]
+    },
+    {
+      "id": "git-rebase-vs-merge",
+      "title": "git rebase vs git merge",
+      "category_id": "git",
+      "details": [
+        "git merge: Une dos ramas. Crea un 'merge commit' (no-lineal) que registra la unión. Historial preciso.",
+        "git rebase: Reescribe el historial. Toma los commits de una rama y los 'reaplica' sobre otra. Crea un historial lineal y limpio. No usar en ramas públicas/compartidas."
+      ]
+    },
+    {
+      "id": "git-cherrypick-reset-revert",
+      "title": "git cherry-pick, git reset, git revert",
+      "category_id": "git",
+      "details": [
+        "git cherry-pick <hash>: Aplica un commit específico de otra rama a la rama actual.",
+        "git revert <hash>: Crea un *nuevo* commit que 'deshace' los cambios de un commit anterior. Seguro para ramas públicas.",
+        "git reset --hard <hash>: Mueve el puntero de la rama a un commit anterior, *descartando* commits posteriores. Peligroso."
+      ]
+    },
+    {
+      "id": "git-commits",
+      "title": "Buenas prácticas de commits (git commit -m \"feature: add login\")",
+      "category_id": "git",
+      "details": [
+        "Commits atómicos: Pequeños, enfocados en una sola tarea.",
+        "Mensajes claros: Usar 'Conventional Commits' (tipo(scope): mensaje).",
+        "feature:, fix:, docs:, refactor:, test:, chore:."
+      ]
+    },
+    {
+      "id": "git-pr-templates",
+      "title": "Pull request templates",
+      "category_id": "git",
+      "details": [
+        "Archivo (pull_request_template.md) en el repositorio (en .github/) que pre-rellena la descripción de un PR.",
+        "Asegura que se incluya contexto, cómo probar, screenshots, etc."
+      ]
+    },
+    {
+      "id": "git-etiquetado",
+      "title": "Etiquetado semántico (bug, enhancement, wip)",
+      "category_id": "git",
+      "details": [
+        "Uso de etiquetas (labels) en Issues y PRs (ej. en GitHub, GitLab).",
+        "bug, enhancement, wip (Work in Progress), needs-review, documentation.",
+        "Ayuda a organizar y filtrar el trabajo."
+      ]
+    },
+    {
+      "id": "git-branching-model",
+      "title": "Branching model (feature/, hotfix/, release/)",
+      "category_id": "git",
+      "details": [
+        "Estrategia de nombrado y uso de ramas.",
+        "GitFlow (complejo: main, develop, feature/, hotfix/, release/).",
+        "GitHub Flow (simple: main es desplegable, feature/)."
+      ]
+    },
+    {
+      "id": "git-code-reviews",
+      "title": "Code reviews efectivos",
+      "category_id": "git",
+      "details": [
+        "Revisar PRs pequeños. Ser constructivo y empático.",
+        "Enfocarse en la lógica, arquitectura y bugs, no solo en estilo (para eso están los linters).",
+        "Proveer sugerencias concretas."
+      ]
+    },
+    {
+      "id": "mindset-ownership",
+      "title": "Ownership: responsabilidad sobre tu código",
+      "category_id": "soft-skills",
+      "details": [
+        "Tomar responsabilidad por tu código desde el desarrollo hasta producción y mantenimiento.",
+        "No culpar a otros; si algo falla, eres responsable de arreglarlo o encontrar a quién pueda."
+      ]
+    },
+    {
+      "id": "mindset-debugging",
+      "title": "Debugging profundo (logs, breakpoints, tracing)",
+      "category_id": "soft-skills",
+      "details": [
+        "No solo \"probar hasta que funcione\".",
+        "Método científico: Formular hipótesis, probarlas.",
+        "Usar herramientas: console.log, breakpoints (debugger), tracing (red/logs), 'rubber ducking'."
+      ]
+    },
+    {
+      "id": "mindset-growth",
+      "title": "Growth mindset: aprender de bugs y errores",
+      "category_id": "soft-skills",
+      "details": [
+        "Mentalidad de crecimiento (vs. mentalidad fija).",
+        "Creer que la habilidad se puede desarrollar.",
+        "Ver los bugs y errores no como fracasos, sino como oportunidades de aprendizaje."
+      ]
+    },
+    {
+      "id": "mindset-remote",
+      "title": "Remote discipline: documentación, comunicación asíncrona",
+      "category_id": "soft-skills",
+      "details": [
+        "Requiere proactividad y autogestión.",
+        "Comunicación asíncrona: Escribir mensajes claros, completos.",
+        "Documentación: Escribir lo que haces (PRs, wikis, READMEs) para que otros lo entiendan sin preguntar."
+      ]
+    },
+    {
+      "id": "mindset-ai",
+      "title": "AI-curiosity: integrar herramientas como Copilot, ChatGPT, etc.",
+      "category_id": "soft-skills",
+      "details": [
+        "No solo usar IA, sino entender *cómo* usarla efectivamente.",
+        "Usar para boilerplate, tests, refactoring, aprender conceptos.",
+        "Ser crítico: Validar siempre el código generado por la IA."
+      ]
+    },
+    {
+      "id": "mindset-mentoria",
+      "title": "Mentoría y knowledge sharing: documentar, enseñar, revisar",
+      "category_id": "soft-skills",
+      "details": [
+        "La responsabilidad de un senior no es solo programar, sino elevar al equipo.",
+        "Documentar decisiones de arquitectura.",
+        "Enseñar activamente a juniors (pair programming)."
+      ]
+    },
+    {
+      "id": "extra-algoritmos-estructuras",
+      "title": "Algoritmos y estructuras de datos (listas, árboles, hashmaps)",
+      "category_id": "extras",
+      "details": [
+        "list/array: Acceso O(1) por índice, inserción/borrado O(n).",
+        "hashmap/dict: Inserción, borrado y búsqueda en O(1) promedio.",
+        "árboles (BST): Búsqueda, inserción, borrado en O(log n) si están balanceados."
+      ]
+    },
+    {
+      "id": "extra-complejidad-temporal",
+      "title": "Complejidad temporal (O(n), O(log n))",
+      "category_id": "extras",
+      "details": [
+        "Medida de cómo escala el tiempo de ejecución de un algoritmo con el tamaño de la entrada (n).",
+        "O(1): Constante.",
+        "O(log n): Logarítmico (ej. búsqueda binaria).",
+        "O(n): Lineal (ej. recorrer un array).",
+        "O(n log n): (ej. merge sort).",
+        "O(n^2): Cuadrático (ej. loops anidados)."
+      ]
+    },
+    {
+      "id": "extra-patrones-diseno",
+      "title": "Patrones de diseño (Factory, Observer, Singleton)",
+      "category_id": "extras",
+      "details": [
+        "Soluciones reutilizables a problemas comunes.",
+        "Factory: (Creacional) Centraliza la creación de objetos.",
+        "Observer: (Comportamiento) Un objeto (subject) notifica a múltiples objetos (observers) sobre cambios.",
+        "Singleton: (Creacional) Asegura que una clase tenga una sola instancia."
+      ]
+    },
+    {
+      "id": "extra-rest-vs-graphql",
+      "title": "REST vs GraphQL",
+      "category_id": "extras",
+      "details": [
+        "REST: Arquitectura basada en recursos y verbos HTTP (GET, POST, PUT, DELETE). Tiende a 'over-fetching' (datos de más) o 'under-fetching' (múltiples llamadas).",
+        "GraphQL: Lenguaje de consulta para APIs. El cliente especifica *exactamente* qué datos necesita en una sola petición."
+      ]
+    },
+    {
+      "id": "extra-seguridad",
+      "title": "Seguridad básica (XSS, CSRF, JWT)",
+      "category_id": "extras",
+      "details": [
+        "XSS (Cross-Site Scripting): Inyectar script malicioso. Prevención: Escapar la salida del usuario.",
+        "CSRF (Cross-Site Request Forgery): Forzar a un usuario autenticado a ejecutar acciones. Prevención: Tokens anti-CSRF.",
+        "JWT (JSON Web Token): Estándar para transmitir 'claims' (info de usuario, roles) de forma segura y firmada."
+      ]
+    },
+    {
+      "id": "extra-arquitectura-limpia",
+      "title": "Arquitectura limpia (no spaghetti code)",
+      "category_id": "extras",
+      "details": [
+        "Diseño de software (ej. Clean Architecture) que separa responsabilidades en capas.",
+        "Objetivo: Código mantenible, testeable, independiente de frameworks y UI.",
+        "Evitar 'spaghetti code' (código enredado, alta dependencia)."
+      ]
+    },
+    {
+      "id": "extra-ci-cd",
+      "title": "CI/CD y despliegue sin romper producción",
+      "category_id": "extras",
+      "details": [
+        "CI (Continuous Integration): Integrar cambios frecuentemente, corriendo builds y tests automáticos (ej. GitHub Actions).",
+        "CD (Continuous Delivery/Deployment): Desplegar automáticamente los cambios que pasan CI a un entorno (staging o producción)."
+      ]
+    }
+  ]
+}
