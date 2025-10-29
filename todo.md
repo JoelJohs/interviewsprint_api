@@ -32,19 +32,19 @@ El backend está construido con **FastAPI** (Python) y sigue una arquitectura mo
 
 ### Fase 1: Configuración inicial y estructura del proyecto
 
-- [ ] **M1.1**: Crear estructura de carpetas modular (`app/api/`, `app/services/`, `app/repositories/`, `app/models/`, `app/middleware/`)
-- [ ] **M1.2**: Configurar `.gitignore` (incluir `serviceAccountKey.json`, `.env`, `__pycache__/`, `*.pyc`, `venv/`)
-- [ ] **M1.3**: Actualizar `requirements.txt` con dependencias (FastAPI, firebase-admin, pydantic, uvicorn, pytest, python-dotenv)
-- [ ] **M1.4**: Completar `app/config.py` con función `initialize_firebase()` que cargue credenciales desde variable de entorno
-- [ ] **M1.5**: Crear `README.md` con instrucciones de setup (instalación, variables de entorno, Firebase credentials, correr local)
+- [x] **M1.1**: Crear estructura de carpetas modular (`app/api/`, `app/services/`, `app/repositories/`, `app/models/`, `app/middleware/`)
+- [x] **M1.2**: Configurar `.gitignore` (incluir `serviceAccountKey.json`, `.env`, `__pycache__/`, `*.pyc`, `venv/`)
+- [x] **M1.3**: Actualizar `requirements.txt` con dependencias (FastAPI, firebase-admin, pydantic, uvicorn, pytest, python-dotenv)
+- [x] **M1.4**: Completar `app/config.py` con función `initialize_firebase()` que cargue credenciales desde variable de entorno
+- [x] **M1.5**: Crear `README.md` con instrucciones de setup (instalación, variables de entorno, Firebase credentials, correr local)
 
 ### Fase 2: Configuración de Firebase
 
-- [ ] **M2.1**: Crear proyecto en Firebase Console y habilitar Firestore
-- [ ] **M2.2**: Habilitar Firebase Authentication (Email/Password y Google Sign-In)
-- [ ] **M2.3**: Generar nueva clave de cuenta de servicio (Service Account Key) y configurar variable de entorno `FIREBASE_CREDENTIALS`
-- [ ] **M2.4**: Diseñar esquema de colecciones Firestore (`users`, `topics`, `user_progress`) y documentar en `PROJECT_INFO.md`
-- [ ] **M2.5**: Configurar reglas de seguridad de Firestore (usuarios solo pueden leer/escribir sus propios datos)
+- [x] **M2.1**: Crear proyecto en Firebase Console y habilitar Firestore
+- [x] **M2.2**: Habilitar Firebase Authentication (Email/Password y Google Sign-In)
+- [x] **M2.3**: Generar nueva clave de cuenta de servicio (Service Account Key) y configurar variable de entorno `FIREBASE_CREDENTIALS`
+- [x] **M2.4**: Diseñar esquema de colecciones Firestore (`users`, `topics`, `user_progress`) y documentar en `PROJECT_INFO.md`
+- [x] **M2.5**: Configurar reglas de seguridad de Firestore (usuarios solo pueden leer/escribir sus propios datos)
 
 ### Fase 3: Modelos y Schemas (Pydantic)
 
