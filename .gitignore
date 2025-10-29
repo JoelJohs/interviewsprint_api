@@ -173,5 +173,12 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-# End of https://www.toptal.com/developers/gitignore/api/pythonserviceAccountKey.json 
-serviceAccountKey.json 
+# End of https://www.toptal.com/developers/gitignore/api/python
+
+# Firebase credentials (NEVER commit these)
+serviceAccountKey.json
+
+# Environment variables
+.env
+.env.local
+
