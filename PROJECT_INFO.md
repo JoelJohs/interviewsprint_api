@@ -10,6 +10,7 @@ InterviewSprint es una aplicación para gestionar planes de estudio técnicos pe
 ## Alcance de este repositorio (Backend únicamente)
 
 Este proyecto se enfoca **exclusivamente en el backend**:
+
 - API REST construida con FastAPI
 - Integración con Firebase (Firestore para base de datos, Firebase Auth para autenticación)
 - Algoritmo de repetición espaciada para recomendar temas
@@ -71,33 +72,43 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 ### Colecciones principales
 
 **users**: `users/{userId}`
-- `email`: string
-- `display_name`: string (opcional)
-- `created_at`: timestamp
-- `last_login`: timestamp
+
+- `id`: string (document ID)
+- `username`: string
+- `email`: string (validado con EmailStr)
+- `is_active`: bool (default: true)
+- `password`: string (hasheado con bcrypt en capa de servicio, NO en el modelo)
 
 **topics**: `topics/{topicId}`
-- `name`: string (ej. "Closures en JavaScript")
-- `category`: string (ej. "JavaScript", "Python", "Algoritmos")
-- `difficulty`: string (ej. "Baja", "Media", "Alta")
-- `description`: string (opcional)
-- `created_at`: timestamp
 
-**user_progress**: `user_progress/{userId}/progress/{topicId}`
-- `confidence_level`: int (1=Baja, 2=Media, 3=Alta)
-- `last_reviewed_at`: timestamp
-- `streak`: int (días consecutivos estudiando este tema)
-- `total_reviews`: int
-- `correct_count`: int
-- `incorrect_count`: int
+- `id`: string (ej. "js-tipos-de-datos")
+- `title`: string (ej. "Tipos de datos (undefined, null, NaN, Symbol, etc.)")
+- `category_id`: string (ej. "js-react", "python", "sql", formato: `^[a-z0-9-]+$`)
+- `details`: list[string] (array de strings con detalles del tema, mínimo 1 elemento no vacío)
+
+**progress**: `progress/{progressId}` o `user_progress/{userId}/progress/{progressId}`
+
+- `id`: string (document ID)
+- `user_id`: string
+- `topic_id`: string
+- `status`: string (ej. "completed", "in-progress", "not-started")
+- `notes`: string (opcional, default: "")
+- `created_at`: timestamp
+- `updated_at`: timestamp
+
+**sessions**: `sessions/{sessionId}`
+
+- `session_id`: string (document ID)
+- `user_id`: string
+- `created_at`: timestamp
+- `topics`: list[SessionItem] (cada item tiene: topic_id, title, category_id, details)
 
 ### Consultas clave (conceptual)
 
-- Obtener temas con confianza baja para un usuario:
-  - Query: `user_progress/{userId}/progress` WHERE `confidence_level == 1`
-- Obtener temas no revisados en >7 días:
-  - Query: `user_progress/{userId}/progress` WHERE `last_reviewed_at < (NOW - 7 days)`
-- Para usuarios nuevos sin progreso: tratar temas como confianza=1 (Baja) por defecto.
+- Obtener temas de una categoría: Query `topics` WHERE `category_id == "js-react"`
+- Obtener progreso de un usuario: Query `progress` WHERE `user_id == userId`
+- Obtener temas completados: Query `progress` WHERE `user_id == userId AND status == "completed"`
+- Para usuarios nuevos sin progreso: crear documentos de progreso con status "not-started" por defecto.
 
 ## Contrato de la API (endpoints principales)
 
@@ -107,8 +118,7 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 
 **Query params**:
 
-- `category` (opcional): filtrar por categoría (ej. "JavaScript", "Python")
-- `difficulty` (opcional): filtrar por dificultad ("Baja", "Media", "Alta")
+- `category_id` (opcional): filtrar por categoría (ej. "js-react", "python", "sql")
 
 **Response 200**:
 
@@ -116,11 +126,14 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 {
   "topics": [
     {
-      "id": "topic_123",
-      "name": "Closures en JavaScript",
-      "category": "JavaScript",
-      "difficulty": "Media",
-      "description": "..."
+      "id": "js-tipos-de-datos",
+      "title": "Tipos de datos (undefined, null, NaN, Symbol, etc.)",
+      "category_id": "js-react",
+      "details": [
+        "Primitivos: String, Number, BigInt, Boolean, undefined, Symbol.",
+        "Objeto: null (typeof es 'object'), Object, Array, Function.",
+        "NaN: 'Not a Number', resultado de operaciones numéricas inválidas."
+      ]
     }
   ]
 }
@@ -140,7 +153,8 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 
 ```json
 {
-  "limit": 5
+  "user_id": "user_123",
+  "topic_ids": ["js-tipos-de-datos", "js-closures", "py-decoradores"]
 }
 ```
 
@@ -149,12 +163,14 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 ```json
 {
   "session_id": "session_abc",
-  "items": [
+  "user_id": "user_123",
+  "created_at": "2025-10-30T10:00:00Z",
+  "topics": [
     {
-      "topic_id": "topic_123",
-      "topic_name": "Closures en JavaScript",
-      "question": "¿Qué es un closure?",
-      "priority": 8.5
+      "topic_id": "js-tipos-de-datos",
+      "title": "Tipos de datos (undefined, null, NaN, Symbol, etc.)",
+      "category_id": "js-react",
+      "details": ["Primitivos: String, Number, BigInt..."]
     }
   ]
 }
@@ -166,17 +182,27 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 
 ### 3. POST /api/v1/progress
 
-**Descripción**: Registra el progreso del usuario en un tema específico.
+**Descripción**: Registra o actualiza el progreso del usuario en un tema específico.
 
 **Headers**: `Authorization: Bearer <firebase_token>`
 
-**Request body**:
+**Request body (crear progreso)**:
 
 ```json
 {
-  "topic_id": "topic_123",
-  "result": "correct",
-  "new_confidence_level": 2
+  "user_id": "user_123",
+  "topic_id": "js-tipos-de-datos",
+  "status": "in-progress",
+  "notes": "Revisando tipos primitivos"
+}
+```
+
+**Request body (actualizar progreso)**:
+
+```json
+{
+  "status": "completed",
+  "notes": "Completado con éxito"
 }
 ```
 
@@ -184,13 +210,13 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 
 ```json
 {
-  "message": "Progress updated successfully",
-  "updated_progress": {
-    "topic_id": "topic_123",
-    "confidence_level": 2,
-    "streak": 3,
-    "last_reviewed_at": "2025-10-29T12:00:00Z"
-  }
+  "id": "progress_456",
+  "user_id": "user_123",
+  "topic_id": "js-tipos-de-datos",
+  "status": "completed",
+  "notes": "Completado con éxito",
+  "created_at": "2025-10-29T12:00:00Z",
+  "updated_at": "2025-10-30T12:00:00Z"
 }
 ```
 
@@ -208,10 +234,10 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 
 ```json
 {
-  "user_id": "user_xyz",
+  "id": "user_xyz",
+  "username": "johndoe",
   "email": "user@example.com",
-  "display_name": "John Doe",
-  "created_at": "2025-01-15T10:00:00Z"
+  "is_active": true
 }
 ```
 
@@ -223,25 +249,22 @@ Los clientes (web React, móvil React Native) consumirán esta API pero **no est
 
 **Inputs**:
 
-- `topic`: objeto con `id`, `difficulty`
-- `user_progress`: objeto con `confidence_level`, `last_reviewed_at`, `streak` (puede ser None para usuarios nuevos)
+- `topic`: objeto con `id`, `title`, `category_id`
+- `user_progress`: objeto con `status`, `notes`, `created_at`, `updated_at` (puede ser None para usuarios nuevos)
 
 **Output**: float (prioridad, mayor = más urgente estudiar)
 
 **Lógica conceptual**:
 
 1. Si `user_progress` es None (tema nunca estudiado): prioridad base = 10.0
-2. Si `confidence_level == 1` (Baja): prioridad base = 8.0
-3. Si `confidence_level == 2` (Media): prioridad base = 5.0
-4. Si `confidence_level == 3` (Alta): prioridad base = 2.0
-5. Ajustar según días desde última revisión:
-   - Si `last_reviewed_at` > 7 días: +3.0
-   - Si `last_reviewed_at` > 14 días: +5.0
-   - Si `last_reviewed_at` > 30 días: +8.0
-6. Ajustar según streak:
-   - Si streak == 0: +1.0 (motivar a retomar)
-   - Si streak > 5: -1.0 (ya tiene momentum)
-7. Devolver prioridad final.
+2. Si `status == "not-started"`: prioridad base = 8.0
+3. Si `status == "in-progress"`: prioridad base = 5.0
+4. Si `status == "completed"`: prioridad base = 2.0
+5. Ajustar según días desde última actualización (`updated_at`):
+   - Si `updated_at` > 7 días: +3.0
+   - Si `updated_at` > 14 días: +5.0
+   - Si `updated_at` > 30 días: +8.0
+6. Devolver prioridad final.
 
 **Uso de generadores**:
 
@@ -267,7 +290,8 @@ def generate_daily_session(user_id, limit=5):
             break
         yield {
             "topic_id": topic.id,
-            "topic_name": topic.name,
+            "title": topic.title,
+            "category_id": topic.category_id,
             "priority": priority
         }
 ```
@@ -275,7 +299,7 @@ def generate_daily_session(user_id, limit=5):
 **Casos borde a testear**:
 
 1. Usuario nuevo (sin progreso): todos los temas deben tener prioridad alta.
-2. Todos los temas con confianza=3 y revisados ayer: prioridades bajas.
+2. Todos los temas con status="completed" y actualizados ayer: prioridades bajas.
 3. Un tema no revisado en 60 días: debe aparecer primero.
 
 ## Arquitectura técnica recomendada
