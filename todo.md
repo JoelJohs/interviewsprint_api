@@ -48,10 +48,10 @@ El backend está construido con **FastAPI** (Python) y sigue una arquitectura mo
 
 ### Fase 3: Modelos y Schemas (Pydantic)
 
-- [ ] **M3.1**: Crear `app/models/topic.py` con schemas `TopicBase`, `TopicCreate`, `TopicResponse`
-- [ ] **M3.2**: Crear `app/models/user.py` con schemas `UserBase`, `UserResponse`
-- [ ] **M3.3**: Crear `app/models/progress.py` con schemas `ProgressBase`, `ProgressCreate`, `ProgressUpdate`, `ProgressResponse`
-- [ ] **M3.4**: Crear `app/models/session.py` con schemas `SessionRequest`, `SessionItem`, `SessionResponse`
+- [x] **M3.1**: Crear `app/models/topic.py` con schemas `TopicBase`, `TopicCreate`, `TopicResponse`
+- [x] **M3.2**: Crear `app/models/user.py` con schemas `UserBase`, `UserResponse`
+- [x] **M3.3**: Crear `app/models/progress.py` con schemas `ProgressBase`, `ProgressCreate`, `ProgressUpdate`, `ProgressResponse`
+- [x] **M3.4**: Crear `app/models/session.py` con schemas `SessionRequest`, `SessionItem`, `SessionResponse`
 
 ### Fase 4: Repositorios (acceso a Firestore)
 
